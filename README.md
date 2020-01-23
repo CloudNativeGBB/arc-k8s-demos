@@ -15,7 +15,7 @@ This section walks through at a high-level what is needed to get the demos setup
 - Enable Azure Arc for Kubernetes on your Azure Subscription and register providers.
 - Create AKS cluster in Azure.
 - Create GKE cluster in GCP.
-- Create EKS Cluster in AWS.
+- [Create EKS Cluster in AWS.](./docks/create-eks-cluster.md)
 - Install Azure CLI and Azure Arc for preview extensions.
 - Use Azure CLI to connect AKS, GKE and EKS clusters in Azure Arc for Kubernetes.
 - Setup cluster-baseline repo for Infrastucture Pipeline(s) based on Terraform and Cluster Configurations based on K8s manifests.
