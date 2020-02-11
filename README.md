@@ -21,5 +21,5 @@ This section walks through at a high-level what is needed to get the demos setup
 - Setup cluster-baseline repo for Infrastucture Pipeline(s) based on Terraform and Cluster Configurations based on K8s manifests.
 - Setup source control repo for Application.
 - Setup app-baseline repo for application yaml files.
-- Use Azure CLI to configure Azure Arc to point to cluster-baseline repo for common cluster configuration.
+- [Use Azure CLI to configure Azure Arc to point to cluster-baseline repo for common cluster configuration.](./docs/apply-cluster-baseline.md)
 - Use Azure CLI to configure Azure Arc to point to app-baseline repo for application deployment.
