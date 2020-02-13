@@ -18,7 +18,7 @@ This section walks through at a high-level what is needed to get the demos setup
 - [Create EKS Cluster in AWS.](./docs/create-eks-cluster.md)
 - Install Azure CLI and Azure Arc for preview extensions.
 - Use Azure CLI to connect AKS, GKE and EKS clusters in Azure Arc for Kubernetes.
-- Setup cluster-baseline repo for Infrastucture Pipeline(s) based on Terraform and Cluster Configurations based on K8s manifests.
+- Setup cluster-baseline repo for Infrastructure Pipeline(s) based on Terraform and Cluster Configurations based on K8s manifests.
 - Setup source control repo for Application.
 - Setup app-baseline repo for application yaml files.
 - [Use Azure CLI to configure Azure Arc to point to cluster-baseline repo for common cluster configuration.](./docs/apply-cluster-baseline.md)
