@@ -36,11 +36,11 @@ az k8sconfiguration create \
 --resource-group $RG \
 --operator-instance-name cluster-baseline-config \
 --operator-namespace cluster-baseline-config \
---repository-url git@github.com:CloudNativeGBB/cluster-baseline.git \
+--repository-url https://github.com/CloudNativeGBB/cluster-baseline.git \
 --operator-params="--git-readonly --git-path=manifests"
 ```
 
-If you're using a private repo, while configuration is being applied you'll want to check status on the deployment until you're provided the SSH key the operator is using. This key should be added to your repo SSH key lists, to allow the operator to pull the manifests.
+Watch for Compeleted status.
 
 ```bash
 watch az k8sconfiguration show -g $RG --cluster-name $CLUSTER_NAME --name cluster-baseline-config -o json
