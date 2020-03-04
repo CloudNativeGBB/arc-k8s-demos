@@ -37,7 +37,8 @@ az k8sconfiguration create \
 --operator-instance-name cluster-baseline-config \
 --operator-namespace cluster-baseline-config \
 --repository-url https://github.com/CloudNativeGBB/cluster-baseline.git \
---operator-params="--git-readonly --git-path=manifests"
+--operator-params="--git-readonly --git-path=manifests" \
+--cluster-scoped
 ```
 
 Watch for Compeleted status.

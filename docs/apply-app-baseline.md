@@ -19,11 +19,11 @@ You apply an application configuration via the same ```az k8sconfiguration creat
 az k8sconfiguration create --name service-tracker-config \
 --cluster-name $CLUSTER_NAME --resource-group $RG \
 --operator-instance-name service-tracker-config --operator-namespace service-tracker-config \
---repository-url git@github.com:CloudNativeGBB/app-baseline.git \
+--repository-url https://github.com/CloudNativeGBB/app-baseline.git \
 --operator-params="--git-readonly --git-path=k8s"
 ```
 
-Again, like the cluster baseline setup, while configuration is being applied you'll want to check status on the deployment until you're provided the SSH key the operator is using. This key should be added to your central repo (i.e. GitHub, Azure DevOps, etc) SSH key lists, to allow the operator to pull the manifests.
+Watch for completed status
 
 ```bash
 watch az k8sconfiguration show -g $RG --cluster-name $CLUSTER_NAME --name service-tracker-config -o json
