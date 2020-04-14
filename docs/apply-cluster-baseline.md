@@ -37,7 +37,7 @@ az k8sconfiguration create -g EphArcTest \
 --helm-operator-chart-version='0.6.0' \
 --helm-operator-chart-values='--set helm.versions=v3' \
 --repository-url https://github.com/CloudNativeGBB/cluster-baseline.git \
---operator-params="--git-readonly --git-path=manifests --git-branch=helm --sync-garbage-collection" \
+--operator-params="--git-readonly --git-path=manifests --sync-garbage-collection" \
 --cluster-scope \
 --operator-instance-name baseline-config \
 --operator-namespace baseline-config
