@@ -30,15 +30,17 @@ Now that we have the cluster connected, we should see it in the Azure portal alo
 Note: You may need to adjust the operator params to match your git branch and path. The below assumes master branch with the manifests under the 'manifest' path.
 
 ```bash
-az k8sconfiguration create \
---name cluster-baseline-config \
---cluster-name $CLUSTER_NAME \
---resource-group $RG \
---operator-instance-name cluster-baseline-config \
---operator-namespace cluster-baseline-config \
+az k8sconfiguration create -g EphArcTest \
+-c griffarctest \
+-n cluster-baseline \
+--enable-helm-operator \
+--helm-operator-chart-version='0.6.0' \
+--helm-operator-chart-values='--set helm.versions=v3' \
 --repository-url https://github.com/CloudNativeGBB/cluster-baseline.git \
---operator-params="--git-readonly --git-path=manifests" \
---cluster-scoped
+--operator-params="--git-readonly --git-path=manifests --git-branch=helm --sync-garbage-collection" \
+--cluster-scope \
+--operator-instance-name baseline-config \
+--operator-namespace baseline-config
 ```
 
 Watch for Compeleted status.
