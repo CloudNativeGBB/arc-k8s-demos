@@ -30,9 +30,9 @@ Now that we have the cluster connected, we should see it in the Azure portal alo
 Note: You may need to adjust the operator params to match your git branch and path. The below assumes master branch with the manifests under the 'manifest' path.
 
 ```bash
-az k8sconfiguration create -g EphArcTest \
--c griffarctest \
--n cluster-baseline \
+az k8sconfiguration create -g $RG \
+-c $CLUSTER_NAME \
+-n baseline-config \
 --enable-helm-operator \
 --helm-operator-chart-version='0.6.0' \
 --helm-operator-chart-values='--set helm.versions=v3' \
