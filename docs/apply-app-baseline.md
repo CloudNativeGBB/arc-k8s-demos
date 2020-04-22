@@ -20,7 +20,7 @@ az k8sconfiguration create --name service-tracker-config \
 --cluster-name $CLUSTER_NAME --resource-group $RG \
 --operator-instance-name service-tracker-config --operator-namespace service-tracker-config \
 --repository-url https://github.com/CloudNativeGBB/app-baseline.git \
---operator-params="--git-readonly --git-path=k8s" \
+--operator-params="--git-readonly --git-path=manifests" \
 --cluster-scoped
 ```
 
