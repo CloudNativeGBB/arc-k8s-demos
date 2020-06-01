@@ -43,7 +43,7 @@ az k8sconfiguration create -g $RG \
 --operator-namespace baseline-config
 ```
 
-Watch for Compeleted status.
+Watch for Completed status.
 
 ```bash
 watch az k8sconfiguration show -g $RG --cluster-name $CLUSTER_NAME --name cluster-baseline-config -o json
