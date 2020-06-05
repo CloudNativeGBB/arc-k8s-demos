@@ -4,7 +4,7 @@ When setting up Azure Arc for Kubernetes, you will typically have multiple confi
 
 ## Cluster Connect
 
-To apply the cluster baseline you first need to make sure you're cluster is joined to Azure Arc for Kubernetes. To join a cluster you will need to create a resource group and provide a cluster name. These are purely for reference within the Azure Resource Manager and the Azure Portal (i.e. This is metadata used by ARM to interact with your clusters).
+To apply the cluster baseline you first need to make sure your cluster is joined to Azure Arc for Kubernetes. To join a cluster you will need to create a resource group and provide a cluster name. These are purely for reference within the Azure Resource Manager and the Azure Portal (i.e. This is metadata used by ARM to interact with your clusters).
 
 If you haven't already, you can join your cluster as follows. Note that you will need to have an active kube/config which is set as your current context for the target cluster.
 
@@ -41,7 +41,7 @@ For this example we'll be deploying a baseline configuration consiting of the fo
 
 ### Log Analytics Pre-Config
 
-To deploy Azure Monitor for Containers we'll need to have a Log Analytics workspace to target which has the Container Insights solution installed. After creating this we'll need to grab the workspace ID and Key, which will be used in the HelmRelease. For details on how to setup Log Analytics you can follow the [Configure hybrid Kubernetes clusters with Azure Monitor for containers](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-hybrid-setup) (Note: In the hybrid cluster setup for Log Analytics, you can stop before the 'Install the chart' step, as we'll install the chart via our Arc configuration.)
+To deploy Azure Monitor for Containers we'll need to have a Log Analytics workspace to target which has the Container Insights solution installed. After creating this we'll need to grab the workspace ID and Key which will be used in the HelmRelease. For details on how to setup Log Analytics you can follow the [Configure hybrid Kubernetes clusters with Azure Monitor for containers](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-hybrid-setup) (Note: In the hybrid cluster setup for Log Analytics, you can stop before the 'Install the chart' step, as we'll install the chart via our Arc configuration.)
 
 Once you have your workspace, you need to grab the access key.
 
@@ -63,7 +63,7 @@ omsagent:
     clusterName: '<INSERT RESOURCE ID OF ARC CLUSTER>'
 ```
 
-To make these values available to the Helm operator we need to get this file into a secret. We'll do that manually here, but you could also use a [sealed secret](https://github.com/bitnami-labs/sealed-secrets/blob/master/README.md).
+To make these values available to the Helm operator we need to get this file into a secret. We'll do that manually here, but you could also use a [sealed secret](https://github.com/bitnami-labs/sealed-secrets/blob/master/README.md) which could then be added to your git repo without exposing any sensitive data.
 
 ```bash
 # Create a secret containing the azure-monitor-values.yaml file
@@ -97,3 +97,63 @@ Watch for Compeleted status.
 watch az k8sconfiguration show -g $RG --cluster-name $CLUSTER_NAME --name baseline-config --cluster-type connectedClusters -o json
 ```
 
+### Verify Your Deployment
+
+Once you see that the k8sconfiguration provisioningState is 'Succeeded' you can check the status of the deployed pods, starting with the baseline-config namespace, which contains the flux and helm operator pods.
+
+>Note: The Helm Operator typically starts 60-90 seconds after the flux operator.
+
+```bash
+# Check baseline-config namespace
+kubectl get pods -n baseline-config
+
+NAME                                                              READY   STATUS    RESTARTS   AGE
+baseline-config-6d888756bc-bkzn8                                  1/1     Running   0          27h
+baseline-config-helm-baseline-config-helm-operator-768c478nxlvj   1/1     Running   0          27h
+memcached-86869f57fd-cz74f                                        1/1     Running   0          27h
+
+# Check for Azure Monitor pods in kube-system
+kubectl get pods -n kube-system|grep oms
+
+omsagent-kzck7                                        1/1     Running   0          23h
+omsagent-rs-694798ff58-zpthb                          1/1     Running   0          23h
+omsagent-tdgxn                                        1/1     Running   0          23h
+omsagent-wpgdx                                        1/1     Running   0          23h
+
+# Check monitoring namespace
+kubectl get svc,pods -n monitoring
+NAME                                                   TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE
+service/alertmanager-operated                          ClusterIP   None           <none>        9093/TCP,9094/TCP,9094/UDP   27h
+service/prometheus-operated                            ClusterIP   None           <none>        9090/TCP                     27h
+service/prometheus-operator-alertmanager               ClusterIP   10.0.10.132    <none>        9093/TCP                     27h
+service/prometheus-operator-grafana                    ClusterIP   10.0.30.135    <none>        80/TCP                       27h
+service/prometheus-operator-kube-state-metrics         ClusterIP   10.0.168.181   <none>        8080/TCP                     27h
+service/prometheus-operator-operator                   ClusterIP   10.0.62.47     <none>        8080/TCP,443/TCP             27h
+service/prometheus-operator-prometheus                 ClusterIP   10.0.166.5     <none>        9090/TCP                     27h
+service/prometheus-operator-prometheus-node-exporter   ClusterIP   10.0.246.88    <none>        9100/TCP                     27h
+
+NAME                                                          READY   STATUS    RESTARTS   AGE
+pod/alertmanager-prometheus-operator-alertmanager-0           2/2     Running   0          27h
+pod/prometheus-operator-grafana-65654974c5-lv8nw              3/3     Running   0          23h
+pod/prometheus-operator-kube-state-metrics-57d47947fd-g842b   1/1     Running   0          27h
+pod/prometheus-operator-operator-796df9c569-gnw5d             2/2     Running   0          27h
+pod/prometheus-operator-prometheus-node-exporter-j6bpc        1/1     Running   0          27h
+pod/prometheus-operator-prometheus-node-exporter-kvtlj        1/1     Running   0          27h
+pod/prometheus-operator-prometheus-node-exporter-pcnwb        1/1     Running   0          27h
+pod/prometheus-prometheus-operator-prometheus-0               3/3     Running   1          27h
+```
+
+You can now port-forward to the grafana service to view the grafana dashboards. 
+
+```bash
+kubectl port-forward service/prometheus-operator-grafana -n monitoring 80:80
+```
+
+To view the Azure Container Insights:
+
+1. Go to [https://portal.azure.com](https://portal.azure.com)
+1. Click on 'Monitor' in the left pane, or go to 'All Services' and search for 'Monitor' if you dont see it
+1. Click on 'Containers'
+1. Click on the 'Monitored Clusters' tab
+1. Click on the 'Environment' drop down and choose 'All'
+1. Click on your cluster name
