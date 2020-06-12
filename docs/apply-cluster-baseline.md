@@ -2,7 +2,7 @@
 
 When setting up Azure Arc for Kubernetes, you will typically have multiple configurations you wish to apply. For example, you will likely have one set of configuration for cluster operational requirements, like logging and monitoring. In this example we refer to this as the 'Cluster Baseline'.
 
-To apply the cluster baseline you first need to make sure you're cluster is joined to Azure Arc for Kubernetes. To join a cluster you will need to create a resource group and provide a cluster name. These are purely for reference within the Azure Resource Manager and the Azure Portal (i.e. This is metadata used by ARM to interact with your clusters).
+To apply the cluster baseline you first need to make sure your cluster is joined to Azure Arc for Kubernetes. To join a cluster you will need to create a resource group and provide a cluster name. These are purely for reference within the Azure Resource Manager and the Azure Portal (i.e. This is metadata used by ARM to interact with your clusters).
 
 If you haven't already, you can join your cluster as follows. Note that you will need to have an active kube/config which is set as your current context for the target cluster.
 
