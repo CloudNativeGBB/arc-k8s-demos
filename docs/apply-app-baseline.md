@@ -27,5 +27,5 @@ az k8sconfiguration create --n service-tracker-config -g $RG -c $CLUSTER_NAME \
 Watch for completed status
 
 ```bash
-watch az k8sconfiguration show -g $RG --cluster-name $CLUSTER_NAME --name service-tracker-config -o json
+watch az k8sconfiguration show -g $RG -c $CLUSTER_NAME -n service-tracker-config -o json --cluster-type connectedClusters
 ```
