@@ -16,16 +16,16 @@ CLUSTER_NAME=<Cluster Name>
 You apply an application configuration via the same ```az k8sconfiguration create``` command we used to apply the cluster baseline configuration. Note the use of ```--operator-params``` to pass flags to be used by flux to access the right branch and path.
 
 ```bash
-az k8sconfiguration create --name service-tracker-config \
---cluster-name $CLUSTER_NAME --resource-group $RG \
+az k8sconfiguration create --n service-tracker-config -g $RG -c $CLUSTER_NAME \
+-u https://github.com/CloudNativeGBB/app-baseline.git \
 --operator-instance-name service-tracker-config --operator-namespace service-tracker-config \
---repository-url https://github.com/CloudNativeGBB/app-baseline.git \
---operator-params="--git-readonly --git-path=manifests" \
---cluster-scoped
+--operator-params="--git-branch master --git-readonly --git-path=manifests --sync-garbage-collection" \
+--cluster-type connectedClusters
+--scope cluster
 ```
 
 Watch for completed status
 
 ```bash
-watch az k8sconfiguration show -g $RG --cluster-name $CLUSTER_NAME --name service-tracker-config -o json
+watch az k8sconfiguration show -g $RG -c $CLUSTER_NAME -n service-tracker-config -o json --cluster-type connectedClusters
 ```
