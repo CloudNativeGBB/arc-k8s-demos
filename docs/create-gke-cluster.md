@@ -34,7 +34,7 @@ gcloud compute instances list
 
 # Option 2: Create GKE cluster using Terraform
 
-* [Download and Install the Terraform by Hashicorp CLI](https://www.terraform.io/downloads.html)
+* [Download and Install the Terraform CLI](https://www.terraform.io/downloads.html)
 
 ## Create GCP GKE Cluster
 
@@ -45,15 +45,23 @@ git clone git@github.com:CloudNativeGBB/cluster-baseline.git
 cd cluster-baseline
 ```
 
-Initialize Terraform:
+* Verify that Terraform is >= 0.13.2
+
+``` cli
+terraform version
+```
+
+* Initialize Terraform
+
 ```cli
 terraform init
 ```
 
-To see any changes in advance that are required for your infrastructure, use `terraform plan`.
+* To see any changes in advance that are required for your infrastructure, use `terraform plan`.
 
-Create the cluster using Terraform:
-```console
+* Create the cluster using Terraform templates
+
+```cli
 cd infrastructure/gcp
 terraform apply
 ```
