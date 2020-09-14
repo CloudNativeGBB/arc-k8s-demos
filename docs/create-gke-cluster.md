@@ -6,10 +6,13 @@ This assumes that you already have a Google Cloud Platform account and have crea
 
 * [Install Google Cloud SDK](https://cloud.google.com/sdk/docs/quickstarts)
 * [Install `kubectl` command line tool](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
- 
-# Option 1: Create using command line tools (locally)
 
-## Create GCP GKE Cluster
+## Google Cloud Platform SDK config
+
+``` cli
+gcloud init
+gcloud auth application-default login
+```
 
 * Set the [project ID](https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects) and [compute engine zone](https://cloud.google.com/compute/docs/zones#available)
 
@@ -17,6 +20,12 @@ This assumes that you already have a Google Cloud Platform account and have crea
 gcloud config set project <projectid>
 gcloud config set compute/zone <computezone>
 ```
+ 
+## Create GCP GKE Cluster
+
+### Option 1: Create using command line tools (locally)
+
+
 
 * Create the Kubernetes cluster (this will take a few minutes)
 
@@ -30,13 +39,17 @@ gcloud container clusters create <cluster-name>
 gcloud compute instances list
 ```
 
+* Generate a kubeconfig entry that uses gcloud for authentication
+
+``` cli 
+gcloud container clusters get-credentials cluster-name
+```
+
 ---
 
-# Option 2: Create GKE cluster using Terraform
+#### Option 2: Create GKE cluster using Terraform
 
 * [Download and Install the Terraform CLI](https://www.terraform.io/downloads.html)
-
-## Create GCP GKE Cluster
 
 Clone the `cluster-baseline` repository:
 
@@ -64,4 +77,10 @@ terraform init
 ```cli
 cd infrastructure/gcp
 terraform apply
+```
+
+* Generate a kubeconfig entry that uses gcloud for authentication
+
+``` cli 
+gcloud container clusters get-credentials <cluster-name>
 ```
