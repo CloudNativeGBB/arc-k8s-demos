@@ -14,7 +14,7 @@ This section walks through at a high-level what is needed to get the demos setup
 
 - [Install the CLI extension and register providers](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/README.md)
 - [Create AKS cluster in Azure](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough)
-- Create GKE cluster in GCP
+- [Create GKE cluster in GCP](./docs/create-gke-cluster.md)
 - [Create EKS Cluster in AWS](./docs/create-eks-cluster.md)
 - [Use Azure CLI to configure Azure Arc to point to cluster-baseline repo for common cluster configuration](./docs/apply-cluster-baseline.md)
 - [Use Azure CLI to configure Azure Arc to point to app-baseline repo for application deployment](./docs/apply-app-baseline.md)
