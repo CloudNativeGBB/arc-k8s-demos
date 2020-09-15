@@ -12,7 +12,7 @@ This organization and repo are focused on demos around Azure Arc for Kubernetes.
 
 This section walks through at a high-level what is needed to get the demos setup.
 
-- [Install the CLI extension and register providers](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/README.md)
+- [Add extensions and register providers](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/connect-cluster)
 - [Create AKS cluster in Azure](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough)
 - [Create GKE cluster in GCP](./docs/create-gke-cluster.md)
 - [Create EKS Cluster in AWS](./docs/create-eks-cluster.md)
