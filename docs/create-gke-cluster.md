@@ -24,8 +24,11 @@ gcloud auth application-default login
 
 ``` cli
 gcloud container clusters create <cluster-name> --cluster-version=1.16 \
-  --num-nodes=3 \
+  --num-nodes=30 \
   --no-enable-autoupgrade
+  --enable-autoscaling
+  --min-nodes 15 
+  --max-nodes 50
 ```
 
 * After the cluster has completed, verify that there are 3 nodes running:
