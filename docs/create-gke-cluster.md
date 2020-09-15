@@ -7,18 +7,11 @@ This assumes that you already have a Google Cloud Platform account and have crea
 * [Install Google Cloud SDK](https://cloud.google.com/sdk/docs/quickstarts)
 * [Install `kubectl` command line tool](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
-## Google Cloud Platform SDK config
+## Create Google Cloud Platform SDK config
 
 ``` cli
 gcloud init
 gcloud auth application-default login
-```
-
-* Set the [project ID](https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects) and [compute engine zone](https://cloud.google.com/compute/docs/zones#available)
-
-``` cli
-gcloud config set project <projectid>
-gcloud config set compute/zone <computezone>
 ```
  
 ## Create GCP GKE Cluster
