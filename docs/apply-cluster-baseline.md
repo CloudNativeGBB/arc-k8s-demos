@@ -47,5 +47,5 @@ az k8sconfiguration create -g $RG \
 Watch for Completed status.
 
 ```bash
-watch az k8sconfiguration show -g $RG --cluster-name $CLUSTER_NAME --name cluster-baseline-config --cluster-type connectedClusters -o json
+watch az k8sconfiguration show -g $RG --cluster-name $CLUSTER_NAME --name baseline-config --cluster-type connectedClusters -o json
 ```
