@@ -55,7 +55,7 @@ Clone the `cluster-baseline` repository:
 
 ```cli
 git clone git@github.com:CloudNativeGBB/cluster-baseline.git
-cd cluster-baseline
+cd cluster-baseline/infrastructure/gcp
 ```
 
 * Verify that Terraform is >= 0.13.2
@@ -63,6 +63,8 @@ cd cluster-baseline
 ``` cli
 terraform version
 ```
+
+* Open `terraform.tfvars` and replace the default values with your `project_id`, `region`, and `cluster_name`
 
 * Initialize Terraform
 
@@ -75,7 +77,6 @@ terraform init
 * Create the cluster using Terraform templates
 
 ```cli
-cd infrastructure/gcp
 terraform apply
 ```
 
