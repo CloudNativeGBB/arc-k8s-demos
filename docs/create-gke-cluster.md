@@ -23,7 +23,9 @@ gcloud auth application-default login
 * Create the Kubernetes cluster (this will take a few minutes)
 
 ``` cli
-gcloud container clusters create <cluster-name>
+gcloud container clusters create <cluster-name> --cluster-version=1.16 \
+  --num-nodes=3 \
+  --no-enable-autoupgrade
 ```
 
 * After the cluster has completed, verify that there are 3 nodes running:
