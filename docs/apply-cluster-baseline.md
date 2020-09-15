@@ -33,12 +33,13 @@ Note: You may need to adjust the operator params to match your git branch and pa
 az k8sconfiguration create -g $RG \
 -c $CLUSTER_NAME \
 -n baseline-config \
+--cluster-type connectedClusters \
+--scope cluster \
 --enable-helm-operator \
---helm-operator-chart-version='0.6.0' \
---helm-operator-chart-values='--set helm.versions=v3' \
+--helm-operator-params='--set helm.versions=v3' \
+--helm-operator-version='0.6.0' \
 --repository-url https://github.com/CloudNativeGBB/cluster-baseline.git \
 --operator-params="--git-readonly --git-path=manifests --sync-garbage-collection" \
---cluster-scope \
 --operator-instance-name baseline-config \
 --operator-namespace baseline-config
 ```
