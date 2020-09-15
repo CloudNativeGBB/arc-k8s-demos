@@ -35,7 +35,7 @@ gcloud compute instances list
 * Generate a kubeconfig entry that uses gcloud for authentication
 
 ``` cli 
-gcloud container clusters get-credentials <cluster-name>
+gcloud container clusters get-credentials <cluster-name> --zone <zone> --project <project>
 ```
 
 ---
@@ -76,5 +76,5 @@ terraform apply
 * Generate a kubeconfig entry that uses gcloud for authentication
 
 ``` cli 
-gcloud container clusters get-credentials <cluster-name>
+gcloud container clusters get-credentials <cluster-name> --zone <zone> --project <project>
 ```
