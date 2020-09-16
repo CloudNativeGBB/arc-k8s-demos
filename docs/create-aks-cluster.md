@@ -2,10 +2,10 @@
 
 ## Pre-requisites
 
-This assumes that you already have a Microsoft Azure subscription and that you are logged into the [Azure CLI](https://aka.ms/azure-cli).
+This assumes that you already have a Microsoft Azure Subscription and that you are logged into the [Azure CLI](https://aka.ms/azure-cli) and have set the correct Azure Subscription to provision resources into.
 
-* [Download and Install the Terraform by Hashicorp CLI](https://www.terraform.io/downloads.html)
-* [Configure or Login with your Azure Credentials](https://www.terraform.io/docs/providers/azurerm/index.html)
+* [Download and Install Hashicorp Terraform CLI](https://www.terraform.io/downloads.html)
+* [Configure or Login with your Azure Credentials](https://www.terraform.io/docs/providers/azurerm/index.html) (If you're already logged into Azure-CLI you're gtg).
 
 ## Create Microsoft Azure AKS Cluster
 
