@@ -9,22 +9,43 @@ This assumes that you already have a Microsoft Azure Subscription and that you a
 
 ## Create Microsoft Azure AKS Cluster
 
-Clone the `cluster-baseline` repository:
+Clone the [cluster-baseline](https://github.com/CloudNativeGBB/cluster-baseline) repository:
 ```console
 git clone git@github.com:CloudNativeGBB/cluster-baseline.git
+```
+
+### Public Cluster
+```bash
+# For a Public Cluster
 cd cluster-baseline/infrastructure/azure/advanced_public
 ```
 
-Initialize Terraform:
+Run Terraform:
 ```console
 terraform init
+terraform plan -out tfplan
+terraform apply tfplan
+```
+
+### Private Cluster
+```bash
+# For a Private Cluster
+cd cluster-baseline/infrastructure/azure/advanced_private
+```
+
+Run provisioning script:
+```console
+bash provision.sh
 ```
 
 To see any changes in advance that are required for your infrastructure, use `terraform plan -out tfplan`.
 
-Create the cluster using Terraform:
-```console
-terraform apply tfplan
+Once complete you can get your kube-config with admin privileges:
+```bash
+export CLUSTER_NAME=$(terraform output cluster_name)
+export CLUSTER_RESOURCE_GROUP=$(terraform output cluster_resource_group_name)
+
+az aks get-credentials -n $CLUSTER_NAME -g $CLUSTER_RESOURCE_GROUP --admin
 ```
 
 Answer `yes` to approve the creation actions when prompted.
